@@ -515,7 +515,7 @@ Tests must verify that:
 
 - all three YAML files load;
 - required top-level sections exist;
-- minimum company size is numeric;
+- minimum company size is measured by the numeric value of the number of employees;
 - evidence classifications are present;
 - sending messages is prohibited;
 - CRM modification is prohibited;
