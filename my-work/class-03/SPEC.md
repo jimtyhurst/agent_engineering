@@ -242,7 +242,7 @@ Suggested products:
 
 The Ideal Customer Profile must include:
 
-- minimum company size as measured by the minimum number of employees (minimum_employee_count);
+- minimum company size;
 - preferred industries;
 - excluded industries;
 - preferred regions;
@@ -515,7 +515,7 @@ Tests must verify that:
 
 - all three YAML files load;
 - required top-level sections exist;
-- minimum company size is measured by the numeric value of the minimum number of employees (minimum_employee_count);
+- minimum company size;
 - evidence classifications are present;
 - sending messages is prohibited;
 - CRM modification is prohibited;

@@ -1,5 +1,6 @@
 # WidgetWare ideal-customer-profile configuration.
 
+minimum_company_size: 5000  # number of employees
 minimum_employee_count: 5000
 maximum_employee_count: null  # no upper bound
 

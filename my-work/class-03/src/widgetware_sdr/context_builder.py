@@ -10,6 +10,19 @@ def build_context(
     evidence: list[dict],
     state: dict | None = None,
 ) -> dict:
+
+    if not account.get("company_name"):
+        raise ValueError("company_name field is required for an account")
+    
+    if not account.get("industry"):
+        raise ValueError("industry field is required for an account")
+
+    if not account.get("employee_count"):
+        raise ValueError("employee_count field is required for an account")
+    
+    if not account.get("region"):
+        raise ValueError("region field is required for an account")
+    
     return {
         "system_instructions": get_system_instructions(),
         "business_context": {

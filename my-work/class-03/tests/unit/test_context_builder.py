@@ -1,3 +1,4 @@
+import pytest
 import os
 import numbers
 from widgetware_sdr import context_builder
@@ -65,3 +66,74 @@ def test_outreach_requires_human_approval() -> None:
     assert 'pricing_statement' in actual_requires_human_approval
     assert 'contractual_statement' in actual_requires_human_approval
 
+
+def test_empty_company_name_error() -> None:
+    with pytest.raises(ValueError, match=r"company_name field is required for an account") :
+        context_builder.build_context(
+            account={
+                "company_name": None,
+                "industry": "manufacturing",
+                "employee_count": 100,
+                "region": "united_states",
+                "buying_signals": [
+                    "new_ai_leadership",
+                ],
+            },
+            objective=EXPECTED_OBJECTIVE, 
+            evidence=[], 
+            state=None
+        )
+
+
+def test_empty_industry_error() -> None:
+    with pytest.raises(ValueError, match=r"industry field is required for an account") :
+        context_builder.build_context(
+            account={
+                "company_name": "Big Data Enterprises",
+                "industry": None,
+                "employee_count": 100,
+                "region": "united_states",
+                "buying_signals": [
+                    "new_ai_leadership",
+                ],
+            },
+            objective=EXPECTED_OBJECTIVE, 
+            evidence=[], 
+            state=None
+        )
+
+
+def test_empty_employee_count_error() -> None:
+    with pytest.raises(ValueError, match=r"employee_count field is required for an account") :
+        context_builder.build_context(
+            account={
+                "company_name": "Big Data Enterprises",
+                "industry": "manufacturing",
+                "employee_count": None,
+                "region": "united_states",
+                "buying_signals": [
+                    "new_ai_leadership",
+                ],
+            },
+            objective=EXPECTED_OBJECTIVE, 
+            evidence=[], 
+            state=None
+        )
+
+
+def test_empty_region_error() -> None:
+    with pytest.raises(ValueError, match=r"region field is required for an account") :
+        context_builder.build_context(
+            account={
+                "company_name": "Big Data Enterprises",
+                "industry": "manufacturing",
+                "employee_count": 100,
+                "region": None,
+                "buying_signals": [
+                    "new_ai_leadership",
+                ],
+            },
+            objective=EXPECTED_OBJECTIVE, 
+            evidence=[], 
+            state=None
+        )
