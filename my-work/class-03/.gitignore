@@ -7,6 +7,8 @@ ENV/
 env.bak/
 venv.bak/
 
+uv.lock
+
 # Python distribution / packaging
 .Python
 build/

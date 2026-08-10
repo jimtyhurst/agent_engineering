@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 import yaml
+from widgetware_sdr.instructions import get_system_instructions
+
 
 def build_context(
     account: dict,
@@ -9,7 +11,7 @@ def build_context(
     state: dict | None = None,
 ) -> dict:
     return {
-        "system_instructions": "...",
+        "system_instructions": get_system_instructions(),
         "business_context": {
             "products": load_products("."),
             "icp": load_icp("."),
