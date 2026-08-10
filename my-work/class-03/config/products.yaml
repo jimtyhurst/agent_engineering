@@ -1,0 +1,56 @@
+# WidgetWare product facts.
+# Business context
+
+company:
+  name: WidgetWare
+  description: >
+    WidgetWare helps manufacturing and industrial-automation
+    companies modernize plant operations and adopt AI-enabled
+    automation. This is a business-to-business, or B2B, sales environment.
+
+products:
+  - id: plant_operations_platform
+    name: Plant Operations Platform
+    description: >
+      Connects plant-operational information and helps teams
+      monitor and improve manufacturing processes.
+    target_buyers:
+      - VP of Manufacturing
+      - Plant Operations Director
+      - Chief Digital Officer
+    approved_claims:
+      - Helps consolidate operational information.
+      - Supports plant-modernization initiatives.
+      - Provides a foundation for AI-enabled operational analysis.
+
+  - id: plant-modernization-suite
+    name: WidgetWare Plant Modernization Suite
+    description: >
+      Software that helps manufacturing and industrial-automation companies
+      modernize plant operations and adopt AI-enabled automation.
+    target_buyers:
+      - Chief Technology Officer
+      - VP of Manufacturing
+      - VP of Digital Transformation
+      - Head of Industrial AI
+    approved_claims:
+      - Integrates with common legacy plant-floor control systems.
+      - Provides a phased modernization path rather than a full rip-and-replace.
+      - Used by manufacturing customers to reduce manual, paper-based approval steps.
+    unapproved_claims:
+      - Guarantees a specific percentage cost reduction.
+      - Replaces a customer's existing safety-certified control systems.
+
+  - id: industrial_ai_accelerator
+    name: Industrial AI Accelerator
+    description: >
+      Helps industrial organizations identify and implement
+      governed AI use cases.
+    target_buyers:
+      - Chief Technology Officer
+      - VP of Digital Transformation
+      - Head of Industrial AI
+    approved_claims:
+      - Helps identify high-value industrial AI opportunities.
+      - Supports governed adoption of AI capabilities.
+      - Connects business objectives with implementation planning.
