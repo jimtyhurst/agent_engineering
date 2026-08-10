@@ -242,7 +242,7 @@ Suggested products:
 
 The Ideal Customer Profile must include:
 
-- minimum company size;
+- minimum company size as measured by the minimum number of employees (minimum_employee_count);
 - preferred industries;
 - excluded industries;
 - preferred regions;
