@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Cloud Tech Summit 2026 | Technical Conference Schedule</title>
+    <meta name="description" content="Explore the schedule for Google Cloud Tech Summit 2026. 8 expert-led technical talks covering Cloud Infrastructure, DevOps, Vertex AI, BigQuery, and enterprise generative AI.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Header / Hero Section -->
+    <header class="hero-header">
+        <div class="hero-glow"></div>
+        <div class="container hero-container">
+            <div class="brand-pill">
+                <span class="gcp-logo-dots">
+                    <span class="dot blue"></span>
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </span>
+                <span>Google Cloud Technical Conference</span>
+            </div>
+
+            <h1 class="hero-title">{{ info.name }}</h1>
+            <p class="hero-subtitle">{{ info.subtitle }}</p>
+
+            <div class="meta-banner">
+                <div class="meta-item">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <div>
+                        <span class="meta-label">Date</span>
+                        <span class="meta-value">{{ info.date }}</span>
+                    </div>
+                </div>
+
+                <div class="meta-item">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <div>
+                        <span class="meta-label">Location</span>
+                        <span class="meta-value">{{ info.location }}</span>
+                    </div>
+                </div>
+
+                <div class="meta-item">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <div>
+                        <span class="meta-label">Schedule Format</span>
+                        <span class="meta-value">1-Day Event • 8 Talks + 60-min Lunch</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-num" id="stat-talks-count">{{ stats.total_talks }}</span>
+                    <span class="stat-label">Technical Talks</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num" id="stat-speakers-count">{{ stats.total_speakers }}</span>
+                    <span class="stat-label">Expert Speakers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">60 Min</span>
+                    <span class="stat-label">Lunch & Networking</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num">2</span>
+                    <span class="stat-label">Core Tracks</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container main-content">
+
+        <!-- Search and Filter Controls -->
+        <section class="controls-section" aria-label="Conference Search and Filters">
+            <div class="search-box">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="Search by talk title, category, or speaker name (e.g. Vertex, Maya, Spanner)..." 
+                    aria-label="Search talks by title or speaker"
+                >
+                <button type="button" id="clear-search-btn" class="clear-btn" aria-label="Clear search query" hidden>✕</button>
+            </div>
+
+            <div class="filter-group">
+                <label for="category-select" class="filter-label">Filter Category:</label>
+                <div class="select-wrapper">
+                    <select id="category-select" aria-label="Filter by talk category">
+                        <option value="all">All Categories</option>
+                        <option value="cat-1">Category 1: Cloud & DevOps Infrastructure</option>
+                        <option value="cat-2">Category 2: AI & Data Engineering</option>
+                    </select>
+                </div>
+
+                <div class="result-count-badge" id="results-count">
+                    Showing <span id="visible-count">{{ stats.total_talks }}</span> of {{ stats.total_talks }} talks
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Timeline View -->
+        <section class="timeline-section">
+            <div class="section-title-wrap">
+                <h2 class="section-title">Event Schedule & Time Table</h2>
+                <span class="timezone-badge">{{ info.time_zone }}</span>
+            </div>
+
+            <div class="talks-grid" id="talks-container">
+                {% for talk in talks %}
+                    {% if talk.is_break %}
+                        <!-- 60-minute Lunch Break Banner -->
+                        <div class="break-card" id="{{ talk.id }}">
+                            <div class="break-time-badge">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>{{ talk.time }}</span>
+                                <span class="duration-pill">{{ talk.duration }}</span>
+                            </div>
+                            <div class="break-content">
+                                <h3 class="break-title">🍱 {{ talk.title }}</h3>
+                                <p class="break-desc">{{ talk.description }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Technical Talk Card -->
+                        <article 
+                            class="talk-card" 
+                            id="{{ talk.id }}"
+                            data-category-id="{{ talk.category_id }}"
+                            data-title="{{ talk.title|lower }}"
+                            data-speakers="{% for s in talk.speakers %}{{ s.first_name|lower }} {{ s.last_name|lower }} {% endfor %}"
+                        >
+                            <div class="card-header">
+                                <div class="time-slot">
+                                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>{{ talk.time }}</span>
+                                </div>
+                                <div class="badges">
+                                    <span class="talk-id-tag">#{{ talk.id }}</span>
+                                    <span class="category-pill {{ talk.category_id }}">
+                                        {{ talk.category_name }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <h3 class="talk-title">{{ talk.title }}</h3>
+                            <p class="talk-description">{{ talk.description }}</p>
+
+                            <div class="card-footer">
+                                <div class="speakers-list">
+                                    <span class="speakers-label">Speakers:</span>
+                                    <div class="speakers-flex">
+                                        {% for speaker in talk.speakers %}
+                                            <div class="speaker-chip">
+                                                <div class="speaker-avatar">
+                                                    {{ speaker.first_name[0] }}{{ speaker.last_name[0] }}
+                                                </div>
+                                                <div class="speaker-info">
+                                                    <span class="speaker-name">{{ speaker.first_name }} {{ speaker.last_name }}</span>
+                                                    <span class="speaker-role">{{ speaker.role }}, {{ speaker.company }}</span>
+                                                </div>
+                                                <a 
+                                                    href="{{ speaker.linkedin_url }}" 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    class="linkedin-btn"
+                                                    title="View {{ speaker.first_name }}'s LinkedIn Profile"
+                                                    aria-label="LinkedIn profile for {{ speaker.first_name }} {{ speaker.last_name }}"
+                                                >
+                                                    <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.7a1.62 1.62 0 1 0 0 3.24 1.62 1.62 0 0 0 0-3.24z"/>
+                                                    </svg>
+                                                    <span>LinkedIn</span>
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Empty State Container -->
+            <div id="no-results" class="no-results" hidden>
+                <div class="no-results-icon">🔍</div>
+                <h3>No talks found</h3>
+                <p>No talks matched your search criteria. Try searching for a different keyword or selecting "All Categories".</p>
+                <button type="button" id="reset-filters-btn" class="reset-btn">Reset All Filters</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h3>Google Cloud Tech Summit 2026</h3>
+                <p>Empowering engineers to build scalable, resilient, and intelligent cloud systems.</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Google Cloud Technical Conference Demo. Built with Python & Flask.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
