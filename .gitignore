@@ -1,3 +1,6 @@
 # Temporary Powerpoint working files.
 *.pptx#
 
+# Caches
+__pycache__
+
