@@ -25,8 +25,14 @@ def build_model() -> Gemini:
 
 
 # Tools
-# TODO 3A: Add save_attractions_to_state here.
-# The exact code is in Task 3 of README.md.
+def save_attractions_to_state(
+    tool_context: ToolContext,
+    attractions: List[str],
+) -> dict[str, str]:
+    """Save new attractions in the session state's attractions list."""
+    existing_attractions = tool_context.state.get("attractions", [])
+    tool_context.state["attractions"] = existing_attractions + attractions
+    return {"status": "success"}
 
 
 # Agents
@@ -39,11 +45,14 @@ attractions_planner = Agent(
         - Provide the user options for attractions to visit within their
           selected country.
 
-        # TODO 3C: Add the two state-aware instruction bullets here.
-        """,
+        - When the user replies, use your tool to save their selected
+          attraction, and then provide more possible attractions.
+        - If they ask to view the list, provide a bulleted list of
+          {attractions?} and then suggest some more.
+    """,
     before_model_callback=log_query_to_model,
     after_model_callback=log_model_response,
-    # TODO 3B: Add tools=[save_attractions_to_state] below this line.
+    tools=[save_attractions_to_state],
 )
 
 travel_brainstormer = Agent(
@@ -71,8 +80,10 @@ root_agent = Agent(
         Ask the user if they know where they'd like to travel
         or if they need some help deciding.
 
-        # TODO 2B: Add the explicit transfer instructions here.
-        """,
+        If they need help deciding, send them to 'travel_brainstormer'.
+        If they know what country they'd like to visit, send them to
+        'attractions_planner'.
+    """,
     generate_content_config=types.GenerateContentConfig(temperature=0),
     sub_agents=[travel_brainstormer, attractions_planner],
 )

@@ -679,3 +679,7 @@ Then inspect the first file and line number printed by Python.
 ## Source alignment note
 
 The task order and learning edits are based on the supplied PDF, **Build Multi-Agent Systems with ADK | Google Skills**, last updated and tested July 26, 2026. The PDF used ADK 1.30.0 and older import paths. This package retains its learning sequence while using ADK 2.x-compatible imports and plugin behavior.
+
+## Issues
+
+After Task 3B, there is an error in the `save_attractions_to_state` tool. When a new attraction is added, all the other previous attractions are also added again to the list.
