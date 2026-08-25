@@ -27,11 +27,11 @@ def build_model() -> Gemini:
 # Tools
 def save_attractions_to_state(
     tool_context: ToolContext,
-    attractions: List[str],
+    attractions: set[str],
 ) -> dict[str, str]:
     """Save new attractions in the session state's attractions list."""
-    existing_attractions = tool_context.state.get("attractions", [])
-    tool_context.state["attractions"] = existing_attractions + attractions
+    existing_attractions = set(tool_context.state.get("attractions", []))
+    tool_context.state["attractions"] = list(existing_attractions.union(attractions))
     return {"status": "success"}
 
 
